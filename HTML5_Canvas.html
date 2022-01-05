@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+  <canvas id="draw" width="800" height="800"></canvas>
+  <script>
+    
+    const canvas = document.getElementById('draw');
+    const ctx = canvas.getContext('2d');
+    ctx.strokeStyle = 'green'//색을 그라디언트로 다양하게 바꾸기. 아마도... 랜덤?
+    ctx.lineCap = 'round';
+    ctx.lineWidth = 1;
+
+    let drawing = false;
+    
+    function startLine(){
+      drawing = true;
+    }
+
+    function stopLine(){
+      drawing = false;
+    }
+
+    function drawLine(event){
+      const X = event.offsetX; 
+      const Y = event.offsetY; 
+      if(!drawing){
+        ctx.beginPath();
+        ctx.moveTo(X, Y);
+      } else {
+        ctx.lineTo(X, Y);
+        ctx.stroke();
+        
+        if(ctx.lineWidth <= 50){
+          ctx.lineWidth++;
+        } else if(ctx.lineWidth = 50){
+          ctx.lineWidth = 1;
+        }
+      
+      }
+      
+    }
+
+canvas.addEventListener("mousedown", startLine);
+canvas.addEventListener("mousemove", drawLine);
+canvas.addEventListener("mouseup", stopLine);
+canvas.addEventListener("mouseleave", stopLine);
+
+
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
